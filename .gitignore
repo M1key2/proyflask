@@ -27,3 +27,8 @@ __pycache__/
 # Archivos de sistema
 .DS_Store
 Thumbs.db
+
+#pycache
+__pycache__/
+#instance
+instance/

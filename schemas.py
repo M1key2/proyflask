@@ -1,16 +1,8 @@
 from extensions import ma
-from models.categoria_model import Categoria
-from models.fuente_model import Fuente
-from models.usuario_model import Usuario
-from models.articulo_model import Articulo
-from models.favorito_model import Favorito
 from marshmallow import fields, validate
 
-
-
-class UsuarioSchema(ma.SQLAlchemySchema):
+class UsuarioSchema(ma.Schema):
     class Meta:
-        model = Usuario
         ordered = True
     id = fields.Integer()
     nombre = fields.String(required=True, validate=validate.Length(min=1, max=100))
@@ -18,28 +10,26 @@ class UsuarioSchema(ma.SQLAlchemySchema):
     password = fields.String(required=True, validate=validate.Length(min=6))
     fecha_creacion = fields.DateTime(dump_only=True)
 
-class CategoriaSchema(ma.SQLAlchemySchema):
+class CategoriaSchema(ma.Schema):
     class Meta:
-        model = Categoria
+        ordered = True
     id = fields.Integer()
     nombre = fields.String(required=True, validate=validate.Length(min=1, max=100))
     descripcion = fields.String(validate=validate.Length(max=255))
     fecha_creacion = fields.DateTime(dump_only=True)
 
-class FuenteSchema(ma.SQLAlchemySchema):
+class FuenteSchema(ma.Schema):
     class Meta:
-        model = Fuente
-
+        ordered = True
     id = fields.Integer()
     nombre = fields.String(required=True, validate=validate.Length(min=1, max=100))
     descripcion = fields.String(validate=validate.Length(max=255))
     url = fields.URL(required=True)
     fecha_creacion = fields.DateTime()
 
-class ArticuloSchema(ma.SQLAlchemySchema):
+class ArticuloSchema(ma.Schema):
     class Meta:
-        model = Articulo
-
+        ordered = True
     id = fields.Integer()
     titulo = fields.String(required=True, validate=validate.Length(min=1, max=255))
     contenido = fields.String()
@@ -48,10 +38,9 @@ class ArticuloSchema(ma.SQLAlchemySchema):
     fecha_publicacion = fields.DateTime(dump_only=True)
 
 
-class FavoritoSchema(ma.SQLAlchemySchema):
+class FavoritoSchema(ma.Schema):
     class Meta:
-        model = Favorito
-
+        ordered = True
     id = fields.Integer()
     id_usuario = fields.Integer(required=True)
     id_articulo = fields.Integer(required=True)
@@ -67,4 +56,4 @@ fuentes_schema = FuenteSchema(many=True)
 articulo_schema = ArticuloSchema()
 articulos_schema = ArticuloSchema(many=True)
 favorito_schema = FavoritoSchema()
-favoritos_schema = FavoritoSchema(many=True) 
+favoritos_schema = FavoritoSchema(many=True)
